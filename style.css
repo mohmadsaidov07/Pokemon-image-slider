@@ -1,0 +1,59 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: rgb(237, 237, 237);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-bar {
+  position: absolute;
+  z-index: 100;
+}
+
+.pokemonName {
+  font-size: 30px;
+  padding: 10px 40px;
+  position: relative;
+}
+
+.hl {
+  font-size: 21px;
+  width: 350px;
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.centerBlock {
+  margin-top: 200px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+}
+
+/* .getPokemon {
+  top: 40px;
+  position: absolute;
+  padding: 20px 30px;
+  font-size: 20px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background-color: tomato;
+} */
+
+.pokemoneImg {
+  height: 600px;
+  border: none;
+}
