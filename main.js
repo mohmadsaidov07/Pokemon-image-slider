@@ -22,9 +22,8 @@ const getPokemonImg = async () => {
 let all_pokemons = [];
 fetch("pokemons_name.json")
   .then((response) => response.json())
-  .then((data) => all_pokemons.push(...data));
+  .then((data) => all_pokemons.push(...data.map((name) => name.toLowerCase())));
 
-all_pokemons = all_pokemons.map((name) => name.toLowerCase());
 const suggestions = document.querySelector(".suggestions");
 const pokemonName = document.querySelector(".pokemonName");
 
@@ -34,33 +33,36 @@ function matchWord(words_arr, wordToMatch) {
     return word.match(regex);
   });
 }
-let hintedWords;
-pokemonName.addEventListener("keydown", () => {
+
+pokemonName.addEventListener("keyup", () => {
   let wordHint = document
     .querySelector(".pokemonName")
     .value.toLowerCase()
     .trim();
-  suggestions.innerHTML = "";
-  hintedWords = matchWord(all_pokemons, wordHint).map((element, index) => {
-    return `<li class="hl" tabindex="${index}">${element}</li>`;
-  });
-  for (let i = 0; i < hintedWords.length; i++) {
-    if (i < 15) {
-      suggestions.innerHTML += hintedWords[i];
-    }
-  }
+
+  suggestions.innerHTML = matchWord(all_pokemons, wordHint)
+    .map((name, index) => {
+      name = name.replace(wordHint, `<span class="hl">${wordHint}</span>`);
+      return `<li class="suggested" tabindex="${index}">${name}</li>`;
+    })
+    .join("");
 });
 
 pokemonName.addEventListener("focusout", () => {
+  pokemonName.value = suggestions.firstChild.textContent;
   suggestions.innerHTML = "";
   getPokemonImg();
 });
 
 //TODO
-
+//Wrote a lot, but still need better understanding of what's going on
 //still there a few issues, first can't choose anything using tab
-//only 1 photo + no slider
+//add arr of src's and ability to slide
+//make slider look somehow liek apple's slider
+//it'll switch on next pic after certain time
+//but if u switch manually it'll reset the timer
 //animation on hints, change image etc
-//need highlight on chosen letters
 //write some comments explaining chunks of code
 //make code as clean as possible
+//Make website dynamic, so phone users can use it as well
+//gotta remove t9 from input and handle tabindex better
