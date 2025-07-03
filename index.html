@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>WebSite</title>
+    <title>Pokemon Image Slider</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -21,11 +21,15 @@
       <ul class="suggestions"></ul>
     </div>
 
-    <div class="centerBlock">
-      <!-- <button class="getPokemon" onclick="getPokemonImg()">
-        Fetch Pokemon
-      </button> -->
-      <img class="pokemoneImg" alt="pokemon" />
+    <div class="centralized">
+      <button class="btnSwitch prevBtn noCopy">&#10094</button>
+
+      <div class="centerBlock"></div>
+      <button class="getPokemon noCopy" onclick="getRandomPokemon()">
+        Random Pokemon
+      </button>
+
+      <button class="btnSwitch nextBtn noCopy">&#10095</button>
     </div>
   </body>
 </html>
