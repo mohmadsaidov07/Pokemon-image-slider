@@ -107,12 +107,6 @@ pokemonName.addEventListener("keyup", () => {
   });
 });
 
-// pokemonName.addEventListener("focusout", () => {
-//   pokemonName.value = suggestions.firstChild.textContent;
-//   suggestions.innerHTML = "";
-//   getPokemonImg();
-// });
-
 //Logic for Random Pokemon button
 let randomInt;
 function getRandomPokemon() {
@@ -195,6 +189,3 @@ prevBtn.addEventListener("click", () => {
 
   intervalId = setInterval(nextPic, 2000);
 });
-
-//TODO
-//make code as clean as possible
