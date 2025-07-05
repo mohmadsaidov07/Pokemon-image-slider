@@ -11,7 +11,7 @@ body {
 }
 
 img {
-  height: 100%;
+  height: 500px;
   border: none;
   position: relative;
   transition: transform ease-in-out 0.3s;
@@ -63,6 +63,7 @@ img {
   padding: 10px;
   border: 1px solid black;
   transition: background-color ease-in-out 0.15s, font-size ease-in-out 0.15s;
+  text-align: center;
 }
 
 .suggested:hover {
@@ -77,39 +78,38 @@ img {
 
 .getPokemon {
   position: absolute;
-  bottom: 20px;
-  left: 45%;
-  width: 10%;
-  padding: 10px 10px;
-  font-size: 16px;
-  background-color: hsl(9, 100%, 64%);
-  border: none;
+  left: 40%;
+  right: 40%;
+  padding: 10px;
+  font-size: 2rem;
+  bottom: 100px;
+  background-color: transparent;
+  color: hsl(100, 100%, 60%);
+  border: 1px solid #000;
   font-weight: 600;
-  color: white;
-  border-radius: 7%;
-  transition: background-color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
+  border-radius: 1%;
+  transition: color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
 }
 
 .getPokemon:hover {
-  background-color: hsl(9, 100%, 67%);
   cursor: pointer;
-  box-shadow: 0px 0px 20px 4px hsla(9, 100%, 67%, 0.5);
-  transition: background-color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
+  box-shadow: 0px 0px 20px 4px hsla(9, 0%, 50%, 0.5);
+  color: hsl(100, 100%, 65%);
+  transition: color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
 }
 
 .getPokemon:active {
-  background-color: hsl(9, 100%, 61%);
-  box-shadow: inset 0px 0px 4px 4px rgba(0, 0, 0, 0.3);
-  transition: background-color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
+  color: hsl(100, 100%, 55%);
+  box-shadow: inset 0px 0px 10px 4px hsla(9, 0%, 50%, 0.5);
+  transition: color ease-in-out 0.15s, box-shadow ease-in-out 0.3s;
 }
 
 .centerBlock {
   margin-top: 7%;
-
   background-color: hsl(0, 0%, 100%);
   border-radius: 30px;
   width: 500px;
-  height: 85%;
+  height: 500px;
   display: flex;
   align-items: center;
   position: relative;
@@ -121,7 +121,7 @@ img {
   font-size: 24px;
   border: none;
   color: black;
-  border-radius: 10px;
+  border-radius: 20%;
   padding: 10px 30px;
   font-weight: bold;
   transition: background-color ease-in-out 0.15s;
@@ -153,4 +153,162 @@ img {
 .prevBtn:active {
   background-color: hsl(10, 100%, 53%);
   transition: background-color ease-in-out 0.15s;
+}
+
+.loadingCircle {
+  padding: 5%;
+  display: none;
+  border: 6px solid hsl(0, 0%, 60%);
+  border-top: 7px solid hsl(130, 100%, 50%);
+  border-radius: 100%;
+  transform: rotate(0deg);
+  position: absolute;
+  left: 45%;
+  animation: loading 0.5s linear infinite;
+  display: block;
+  z-index: 100;
+  top: 40%;
+}
+
+.hide {
+  display: none;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (min-width: 1310px) {
+  .centerBlock {
+    width: 1000px;
+    height: 1000px;
+  }
+  img {
+    height: 1000px;
+  }
+
+  .btnSwitch {
+    font-size: 44px;
+  }
+}
+
+@media (min-width: 940px) and (max-width: 1309px) {
+  .centerBlock {
+    width: 700px;
+    height: 700px;
+  }
+  img {
+    height: 700px;
+  }
+
+  .btnSwitch {
+    font-size: 30px;
+  }
+}
+
+@media (min-width: 710px) and (max-width: 939px) {
+  .btnSwitch {
+    font-size: 20px;
+  }
+  .getPokemon {
+    padding: 20px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 709px) {
+  .centralized {
+    flex-direction: column;
+  }
+  .centerBlock {
+    width: 400px;
+    height: 600px;
+    order: 1;
+  }
+  img {
+    height: 500px;
+    width: 400px;
+  }
+
+  .nextBtn {
+    order: 2;
+  }
+
+  .prevBtn {
+    order: 3;
+  }
+
+  .btnSwitch {
+    font-size: 30px;
+    width: 200px;
+    border-radius: 12%;
+  }
+
+  .getPokemon {
+    font-size: 2rem;
+    left: 30%;
+    right: 30%;
+    top: 100px;
+    bottom: auto;
+    z-index: 99;
+  }
+}
+
+@media (min-width: 1px) and (max-width: 399px) {
+  .centralized {
+    flex-direction: column;
+  }
+  .centerBlock {
+    width: 300px;
+    height: 500px;
+    order: 1;
+  }
+  img {
+    height: 400px;
+    width: 300px;
+  }
+
+  .nextBtn {
+    order: 2;
+  }
+
+  .prevBtn {
+    order: 3;
+  }
+
+  .btnSwitch {
+    font-size: 30px;
+    width: 200px;
+    border-radius: 12%;
+  }
+
+  .pokemonName {
+    padding: 20px 0px;
+    width: 300px;
+    position: relative;
+  }
+
+  .suggested {
+    font-size: 16px;
+    width: 200px;
+    padding: 10px;
+  }
+
+  .getPokemon {
+    font-size: 1.5rem;
+    left: 20%;
+    top: 100px;
+    bottom: auto;
+    z-index: 99;
+    right: 20%;
+  }
 }

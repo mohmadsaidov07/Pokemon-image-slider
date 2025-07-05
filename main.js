@@ -1,4 +1,5 @@
 "use strict";
+const loadingCircle = document.querySelector(".loadingCircle");
 
 const getPokemonImg = async () => {
   try {
@@ -7,9 +8,15 @@ const getPokemonImg = async () => {
       .value.toLowerCase()
       .trim();
 
+    console.time("Fetching Images took");
+    loadingCircle.classList.toggle("hide");
     const fetch_response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
     );
+    loadingCircle.classList.toggle("hide");
+
+    console.timeEnd("Fetching Images took");
+
     if (!fetch_response.ok) {
       throw new Error("Fetching is unsuccessful");
     }
@@ -117,18 +124,37 @@ function getRandomPokemon() {
   getPokemonImg();
 }
 
+//Making website dynamic
+let translation;
+let translatedX;
+function setTranslation() {
+  if (window.innerWidth > 1310) {
+    translation = 1000;
+  } else if (window.innerWidth > 940 && window.innerWidth < 1310) {
+    translation = 700;
+  } else if (window.innerWidth > 710 && window.innerWidth < 940) {
+    translation = 500;
+  } else if (window.innerWidth > 400 && window.innerWidth < 710) {
+    translation = 400;
+  } else {
+    translation = 300;
+  }
+  translatedX = 0;
+}
+
+setTranslation();
+window.addEventListener("resize", setTranslation);
+
 //Next Image Button
-let translatedX = 0;
-const TRANSLATION = 515;
 function nextPic() {
   const pokemonImgs = Array.from(
     document.querySelector(".centerBlock").children
   );
-  translatedX -= TRANSLATION;
+  translatedX -= translation;
 
   if (
-    translatedX === pokemonImgs.length * -TRANSLATION ||
-    translatedX < pokemonImgs.length * -TRANSLATION
+    translatedX === pokemonImgs.length * -translation ||
+    translatedX < pokemonImgs.length * -translation
   ) {
     translatedX = 0;
   }
@@ -143,10 +169,10 @@ function prevPic() {
   const pokemonImgs = Array.from(
     document.querySelector(".centerBlock").children
   );
-  translatedX += TRANSLATION;
+  translatedX += translation;
 
   if (translatedX > 0) {
-    translatedX = TRANSLATION * -(pokemonImgs.length - 1);
+    translatedX = translation * -(pokemonImgs.length - 1);
   }
   pokemonImgs.forEach((chr) => {
     chr.style.transform = `translateX(${translatedX}px)`;
@@ -172,5 +198,3 @@ prevBtn.addEventListener("click", () => {
 
 //TODO
 //make code as clean as possible
-//Make website dynamic, so phone users can use it as well
-//Try2Add loading when fetching for something
