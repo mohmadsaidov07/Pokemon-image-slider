@@ -60,25 +60,39 @@ function matchWord(words_arr, wordToMatch) {
   });
 }
 
-//Adds all pokemon suggestions into the ul list
-pokemonName.addEventListener("keyup", () => {
-  let wordHint = document
-    .querySelector(".pokemonName")
-    .value.toLowerCase()
-    .trim();
+function debounce(callback, delay = 300) {
+  let timer;
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback();
+    }, delay);
+  };
+}
 
-  suggestions.innerHTML = matchWord(all_pokemons, wordHint)
-    .map((name, index) => {
-      //Highlight for typed letters
-      name = name.replace(wordHint, `<span class="hl">${wordHint}</span>`);
-      //TabIndex + 1 cuz tabIndex = 1 is website's url
-      return `<li class="suggested" tabindex="${index + 1}">${name}</li>`;
-    })
-    .join("");
-});
+//Adds all pokemon suggestions into the ul list
+pokemonName.addEventListener(
+  "keyup",
+  debounce(() => {
+    let wordHint = document
+      .querySelector(".pokemonName")
+      .value.toLowerCase()
+      .trim();
+
+    suggestions.innerHTML = matchWord(all_pokemons, wordHint)
+      .map((name, index) => {
+        //Highlight for typed letters
+        name = name.replace(wordHint, `<span class="hl">${wordHint}</span>`);
+        //(TabIndex + 1) because (tabIndex = 1) is website's url
+        return `<li class="suggested" tabindex="${index + 1}">${name}</li>`;
+      })
+      .join("");
+  })
+);
 
 //Makes you able to choose a wanted pokemon-name from a suggested-list by clicking at it
-pokemonName.addEventListener("keyup", () => {
+//&& for getting wanted Pokemon when using TabIndex & Enter
+pokemonName.addEventListener("change", () => {
   const suggested = document.querySelectorAll(".suggested");
   suggested.forEach((suggestion) => {
     suggestion.addEventListener("click", () => {
@@ -86,17 +100,9 @@ pokemonName.addEventListener("keyup", () => {
       suggestions.innerHTML = "";
       getPokemonImg();
     });
-  });
-});
 
-//Logic for getting wanted Pokemon when using TabIndex & Enter
-pokemonName.addEventListener("keyup", () => {
-  const suggested = document.querySelectorAll(".suggested");
-  suggested.forEach((suggestion) => {
-    // suggestion === pokemon name hints
     suggestion.addEventListener("focus", () => {
       suggestion.addEventListener("keyup", (e) => {
-        //keyCode 13 belongs to enter
         if (e.key === "Enter") {
           pokemonName.value = suggestion.textContent;
           suggestions.innerHTML = "";
@@ -137,7 +143,7 @@ function setTranslation() {
 }
 
 setTranslation();
-window.addEventListener("resize", setTranslation);
+window.addEventListener("resize", debounce(setTranslation));
 
 //Next Image Button
 function nextPic() {
